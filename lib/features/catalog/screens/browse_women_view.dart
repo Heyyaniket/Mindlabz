@@ -15,13 +15,13 @@ class BrowseWomenView extends StatelessWidget {
           const SizedBox(height: 30),
 
           // 1. CIRCULAR CATEGORY GRID
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: Wrap(
               spacing: 15,
               runSpacing: 25,
               alignment: WrapAlignment.spaceBetween,
-              children: const [
+              children: [
                 CategoryCircle(name: 'DRESS', imageUrl: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1966&auto=format&fit=crop'),
                 CategoryCircle(name: 'GOWN', imageUrl: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?q=80&w=1924&auto=format&fit=crop'),
                 CategoryCircle(name: 'MAXI', imageUrl: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=1888&auto=format&fit=crop'),

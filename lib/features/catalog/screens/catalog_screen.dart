@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mindlabz/core/theme/app_pallete.dart';
+import 'package:mindlabz/features/cart/screens/cart_screen.dart';
 import 'package:mindlabz/features/catalog/screens/browse_child_view.dart';
 import 'package:mindlabz/features/catalog/screens/browse_others_view.dart';
 import 'package:mindlabz/features/catalog/screens/browse_women_view.dart';
-import 'package:mindlabz/features/wishlist/screens/wishlist_screen.dart';
+// import 'package:mindlabz/features/wishlist/screens/wishlist_screen.dart';
 import 'package:mindlabz/features/search/screens/search_screen.dart'; // <--- NEW IMPORT
 
 class CatalogScreen extends StatefulWidget {
@@ -56,7 +57,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const WishlistScreen()),
+                  MaterialPageRoute(builder: (context) => const CartScreen()),
                 );
               },
               icon: const Icon(Icons.shopping_bag_outlined, color: AppPallete.black)

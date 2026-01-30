@@ -15,13 +15,13 @@ class BrowseOthersView extends StatelessWidget {
           const SizedBox(height: 30),
 
           // 1. CIRCULAR CATEGORY GRID (Accessories & Lifestyle)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: Wrap(
               spacing: 15,
               runSpacing: 25,
               alignment: WrapAlignment.spaceBetween,
-              children: const [
+              children: [
                 CategoryCircle(name: 'DRESSES', imageUrl: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1966&auto=format&fit=crop'),
                 CategoryCircle(name: 'WATCHES', imageUrl: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?q=80&w=1999&auto=format&fit=crop'),
                 CategoryCircle(name: 'SHOES', imageUrl: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=2080&auto=format&fit=crop'),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mindlabz/core/theme/app_pallete.dart';
+// import 'package:mindlabz/features/cart/screens/cart_screen.dart';
 import 'package:mindlabz/features/home/widgets/product_card.dart';
 
 class HomeScreen extends StatelessWidget {

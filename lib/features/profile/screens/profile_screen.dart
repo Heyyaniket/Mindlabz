@@ -134,8 +134,8 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 15),
-            Row(
-              children: const [
+            const Row(
+              children:  [
                 PersonalizationCard(title: 'Personalize', icon: Icons.auto_awesome), // Sparkle Icon
                 SizedBox(width: 15),
                 PersonalizationCard(title: 'The little Ones', icon: Icons.auto_awesome),
@@ -147,7 +147,11 @@ class ProfileScreen extends StatelessWidget {
             // 5. LOGOUT
             TextButton(
               onPressed: () {
-                // Logout Logic
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  '/login',
+                  (route) => false,
+                );
               },
               child: Text(
                 'LOGOUT',

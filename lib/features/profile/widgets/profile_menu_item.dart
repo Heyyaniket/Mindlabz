@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mindlabz/core/theme/app_pallete.dart';
+// import 'package:mindlabz/core/theme/app_pallete.dart';
 
 class ProfileMenuItem extends StatelessWidget {
   final String title;

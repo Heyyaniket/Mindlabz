@@ -171,7 +171,7 @@ class LoginScreen extends StatelessWidget {
                   Text(
                     'New User?',
                     style: GoogleFonts.inter(
-                      color: AppPallete.textGrey.withOpacity(0.7),
+                      color: AppPallete.textGrey.withValues(alpha: 0.7),
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
                     ),

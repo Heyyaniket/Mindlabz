@@ -135,8 +135,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   const SizedBox(height: 30),
 
                   // 4. FORM FIELDS
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Expanded(child: CheckoutTextField(label: 'First Name', hintText: 'Name')),
                       SizedBox(width: 15),
                       Expanded(child: CheckoutTextField(label: 'Last Name', hintText: 'Name')),
@@ -153,8 +153,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   const CheckoutTextField(label: 'Secondary Address(Optional)', hintText: 'address'),
                   const SizedBox(height: 20),
 
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Expanded(child: CheckoutTextField(label: 'City', hintText: 'city')),
                       SizedBox(width: 15),
                       Expanded(child: CheckoutTextField(label: 'Pincode', hintText: 'Pincode')),

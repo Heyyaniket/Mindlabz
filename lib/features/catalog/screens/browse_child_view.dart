@@ -15,13 +15,13 @@ class BrowseChildView extends StatelessWidget {
           const SizedBox(height: 30),
 
           // 1. CIRCULAR CATEGORY GRID (Matched to Child UI Icons)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: Wrap(
               spacing: 15,
               runSpacing: 25,
               alignment: WrapAlignment.spaceBetween,
-              children: const [
+              children: [
                 CategoryCircle(name: 'ACCESSORIES', imageUrl: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=2070&auto=format&fit=crop'),
                 CategoryCircle(name: 'SNEAKERS', imageUrl: 'https://images.unsplash.com/photo-1514989940723-e8a516350466?q=80&w=2070&auto=format&fit=crop'),
                 CategoryCircle(name: 'BAGS', imageUrl: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=1935&auto=format&fit=crop'),

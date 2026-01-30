@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mindlabz/core/theme/app_pallete.dart';
+import 'package:mindlabz/features/cart/screens/cart_screen.dart';
 import 'package:mindlabz/features/catalog/screens/catalog_screen.dart';
 import 'package:mindlabz/features/home/screens/the_child_view.dart';
 import 'package:mindlabz/features/home/screens/the_women_view.dart';
@@ -79,9 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
               onPressed: () {
-                setState(() {
-                  _bottomNavIndex = 2; // Switch to Wishlist Tab
-                });
+                Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CartScreen()),
+    );
               },
               icon: const Icon(Icons.shopping_bag_outlined, color: AppPallete.black)
           ),

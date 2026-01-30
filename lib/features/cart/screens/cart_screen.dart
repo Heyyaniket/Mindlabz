@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mindlabz/core/theme/app_pallete.dart';
 import 'package:mindlabz/features/cart/widgets/cart_item_card.dart';
-import 'package:mindlabz/features/checkout/screens/checkout_screen.dart'; // <--- NEW IMPORT
+import 'package:mindlabz/features/catalog/screens/catalog_screen.dart';
+import 'package:mindlabz/features/checkout/screens/checkout_screen.dart';
+import 'package:mindlabz/features/home/screens/home_screen.dart';
+import 'package:mindlabz/features/profile/screens/profile_screen.dart';
+import 'package:mindlabz/features/wishlist/screens/wishlist_screen.dart'; // <--- NEW IMPORT
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -12,35 +16,68 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  // Mock Data
-  final List<Map<String, String>> _cartItems = [
-    {
-      'name': 'Product Name',
-      'brand': 'BRAND NAME',
-      'size': 'Large',
-      'price': '\$100.00',
-      'image': 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?q=80&w=1999&auto=format&fit=crop', // Watch
-    },
-    {
-      'name': 'Product Name',
-      'brand': 'BRAND NAME',
-      'size': 'Large',
-      'price': '\$100.00',
-      'image': 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=1935&auto=format&fit=crop', // Bag
-    },
-    {
-      'name': 'Product Name',
-      'brand': 'BRAND NAME',
-      'size': 'Large',
-      'price': '\$100.00',
-      'image': 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=2080&auto=format&fit=crop', // Shoes
-    },
-  ];
+  final CartManager _cartManager = CartManager();
+  List<Map<String, String>>? get cartItems => _cartManager.items;
 
   void _removeItem(int index) {
     setState(() {
-      _cartItems.removeAt(index);
+      _cartManager.removeItem(index);
     });
+  }
+
+  int _getQty(Map<String, String> item) {
+    return int.tryParse(item['quantity'] ?? '1') ?? 1;
+  }
+
+  double _parsePrice(String? raw) {
+    if (raw == null) return 0.0;
+    final cleaned = raw.replaceAll(RegExp(r'[^0-9.]'), '');
+    return double.tryParse(cleaned) ?? 0.0;
+  }
+
+  double _calculateTotal() {
+    if (cartItems == null || cartItems!.isEmpty) return 0.0;
+    double total = 0.0;
+    for (final item in cartItems!) {
+      final price = _parsePrice(item['price']);
+      final qty = _getQty(item);
+      total += price * qty;
+    }
+    return total;
+  }
+
+  void _incrementQty(int index) {
+    setState(() {
+      if (cartItems == null) return;
+      final item = cartItems![index];
+      final qty = _getQty(item) + 1;
+      item['quantity'] = qty.toString();
+    });
+  }
+
+  void _decrementQty(int index) {
+    setState(() {
+      if (cartItems == null) return;
+      final item = cartItems![index];
+      final qty = _getQty(item) - 1;
+      item['quantity'] = (qty < 1 ? 1 : qty).toString();
+    });
+  }
+
+  Widget _qtyButton({required IconData icon, required VoidCallback onTap}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: 22,
+        height: 22,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.grey.shade300),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Icon(icon, size: 14, color: Colors.black),
+      ),
+    );
   }
 
   @override
@@ -69,24 +106,103 @@ class _CartScreenState extends State<CartScreen> {
       body: Column(
         children: [
           const SizedBox(height: 30),
-
-          // 1. LIST OF ITEMS
+          // 1. CART ITEMS LIST
+          
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              itemCount: _cartItems.length,
-              itemBuilder: (context, index) {
-                final item = _cartItems[index];
-                return CartItemCard(
-                  imageUrl: item['image']!,
-                  name: item['name']!,
-                  brand: item['brand']!,
-                  size: item['size']!,
-                  price: item['price']!,
-                  onRemove: () => _removeItem(index),
-                );
-              },
-            ),
+            child: cartItems == null || cartItems!.isEmpty
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.shopping_bag_outlined,
+                          size: 80,
+                          color: Colors.grey.shade300,
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          'Your cart is empty',
+                          style: GoogleFonts.playfairDisplay(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Add items to get started',
+                          style: GoogleFonts.inter(
+                            fontSize: 14,
+                            color: Colors.grey.shade500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    itemCount: cartItems!.length,
+                    itemBuilder: (context, index) {
+                      final item = cartItems![index];
+                      final qty = _getQty(item);
+
+                      return Stack(
+                        children: [
+                          CartItemCard(
+                            imageUrl: item['image']!,
+                            name: item['name']!,
+                            brand: item['brand']!,
+                            size: item['size']!,
+                            price: item['price']!,
+                            onRemove: () => _removeItem(index),
+                          ),
+                          Positioned(
+                            top: 8,
+                            left: 8,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: Colors.grey.shade300),
+                                borderRadius: BorderRadius.circular(6),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color.fromARGB(231, 82, 80, 80)
+                                        .withAlpha(15),
+                                    blurRadius: 6,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  _qtyButton(
+                                    icon: Icons.remove,
+                                    onTap: () => _decrementQty(index),
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    '$qty',
+                                    style: GoogleFonts.inter(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 6),
+                                  _qtyButton(
+                                    icon: Icons.add,
+                                    onTap: () => _incrementQty(index),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
           ),
 
           // 2. TOTALS & CHECKOUT SECTION
@@ -111,7 +227,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                     ),
                     Text(
-                      '\$300.00', // Static for UI demo
+                      '\$${_calculateTotal().toStringAsFixed(2)}',
                       style: GoogleFonts.inter(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -161,7 +277,8 @@ class _CartScreenState extends State<CartScreen> {
                       // Navigate to Checkout Screen
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const CheckoutScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => const CheckoutScreen()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -190,19 +307,57 @@ class _CartScreenState extends State<CartScreen> {
 
       // --- BOTTOM NAV ---
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 2, // Cart tab selected
         backgroundColor: Colors.white,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.grey.shade400,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: 'Catalog'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: 'Favorites'),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
-        ],
-      ),
+         onTap: (index) {
+    if (index == 2) return; // already on cart
+    final pages = [
+      const HomeScreen(),
+      const CatalogScreen(),
+      const CartScreen(),
+      const WishlistScreen(),
+      const ProfileScreen(),
+    ];
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => pages[index]),
+    );
+  },
+  items: const [
+    BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
+    BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: 'Catalog'),
+    BottomNavigationBarItem(icon: Icon(Icons.shopping_bag_outlined), label: 'Cart'),
+    BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: 'Wishlist'),
+    BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
+  ],
+),
     );
   }
+}
+
+class CartManager {
+  static final CartManager _instance = CartManager._internal();
+  factory CartManager() => _instance;
+  CartManager._internal();
+
+  final List<Map<String, String>> _items = [];
+
+  List<Map<String, String>> get items => _items;
+
+  void addItem(Map<String, String> item) {
+    _items.add(item);
+  }
+
+  void removeItem(int index) {
+    if (index >= 0 && index < _items.length) {
+      _items.removeAt(index);
+    }
+  }
+
+  bool get isEmpty => _items.isEmpty;
 }

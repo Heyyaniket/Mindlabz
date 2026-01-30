@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mindlabz/core/theme/app_pallete.dart';
+import 'package:mindlabz/features/cart/screens/cart_screen.dart';
 import 'package:mindlabz/features/catalog/screens/catalog_screen.dart'; // <--- NEW IMPORT for Navigation
+import 'package:mindlabz/features/home/screens/home_screen.dart';
 import 'package:mindlabz/features/home/widgets/product_card.dart';
+import 'package:mindlabz/features/profile/screens/profile_screen.dart';
+import 'package:mindlabz/features/wishlist/screens/wishlist_screen.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({super.key});
@@ -53,21 +57,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   left: 20,
                   child: GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                       backgroundColor: Colors.white,
                       radius: 20,
-                      child: const Icon(Icons.arrow_back_ios_new, size: 18, color: Colors.black),
+                      child: Icon(Icons.arrow_back_ios_new, size: 18, color: Colors.black),
                     ),
                   ),
                 ),
                 // Heart Button
-                Positioned(
+                const Positioned(
                   top: 50,
                   right: 20,
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 20,
-                    child: const Icon(Icons.favorite, size: 20, color: Color(0xFFFBB000)),
+                    child: Icon(Icons.favorite, size: 20, color: Color(0xFFFBB000)),
                   ),
                 ),
               ],
@@ -209,7 +213,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 width: double.infinity,
                 height: 55,
                 child: OutlinedButton(
-                  onPressed: () {},
+                 onPressed: () {
+    final item = {
+      'name': 'Product Name',
+      'brand': 'SOME COLLECTION NAME',
+      'size': _sizes[_selectedSizeIndex],
+      'price': '\$500',
+      'image': 'https://images.unsplash.com/photo-1519238263496-6361937a2717?q=80&w=1887&auto=format&fit=crop',
+    };
+
+    CartManager().addItem(item);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Added to cart')),
+    );
+  },
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: Color(0xFFC9A761)),
                     shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
@@ -351,17 +369,31 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           ],
         ),
       ),
-      // --- VISUAL BOTTOM NAV (Visual Only) ---
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.grey.shade400,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
+     // --- FUNCTIONAL BOTTOM NAV ---
+bottomNavigationBar: BottomNavigationBar(
+  backgroundColor: Colors.white,
+  selectedItemColor: Colors.black,
+  unselectedItemColor: Colors.grey.shade400,
+  showSelectedLabels: false,
+  showUnselectedLabels: false,
+  type: BottomNavigationBarType.fixed,
+  onTap: (index) {
+    final pages = [
+      const HomeScreen(),
+      const CatalogScreen(),
+      const CartScreen(),
+      const WishlistScreen(),
+      const ProfileScreen(),
+    ];
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => pages[index]),
+    );
+  },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: 'Catalog'),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: 'Cart'),
           BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: 'Favorites'),
           BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
         ],
