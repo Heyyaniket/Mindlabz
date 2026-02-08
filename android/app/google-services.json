@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "262305940970",
+    "project_id": "demo1-6db9e",
+    "storage_bucket": "demo1-6db9e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262305940970:android:d5d2b175de405f5fb49e93",
+        "android_client_info": {
+          "package_name": "com.example.basecamp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262305940970-q8tu6sinc31e0cp744eh95pt3l7obneb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiH8IYFI4PoFHj9kt1KSQOEWVNAUMh8EI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262305940970-q8tu6sinc31e0cp744eh95pt3l7obneb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "262305940970-dkh1efjfr9ha7qh4bbbahugul7psh7d7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.basecamp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262305940970:android:15f214a1f4cd2e48b49e93",
+        "android_client_info": {
+          "package_name": "com.example.mindlabz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262305940970-q8tu6sinc31e0cp744eh95pt3l7obneb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiH8IYFI4PoFHj9kt1KSQOEWVNAUMh8EI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262305940970-q8tu6sinc31e0cp744eh95pt3l7obneb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "262305940970-dkh1efjfr9ha7qh4bbbahugul7psh7d7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.basecamp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

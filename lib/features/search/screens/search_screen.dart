@@ -29,19 +29,22 @@ class _SearchScreenState extends State<SearchScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back_ios_new,
+                          color: Colors.black, size: 20),
+                      onPressed: () => Navigator.pop(context),
+                    ),
                     // Search Field
                     Expanded(
                       child: Container(
                         height: 50,
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade50,
+                          color: Colors.blueGrey.shade50,
                           borderRadius: BorderRadius.circular(30),
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
                           children: [
-                            const Icon(Icons.search, color: Colors.black),
-                            const SizedBox(width: 10),
                             Expanded(
                               child: TextField(
                                 decoration: InputDecoration(
@@ -54,6 +57,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                 ),
                               ),
                             ),
+                            IconButton(
+                              icon: const Icon(Icons.search, color: Colors.black),
+                              onPressed: () {},
+                            ),
+                            // const SizedBox(width: 10),
                           ],
                         ),
                       ),
@@ -86,15 +94,19 @@ class _SearchScreenState extends State<SearchScreen> {
                         padding: const EdgeInsets.only(bottom: 8),
                         decoration: isSelected
                             ? const BoxDecoration(
-                          border: Border(bottom: BorderSide(color: Color(0xFFC9A761), width: 2)),
-                        )
+                                border: Border(
+                                    bottom: BorderSide(
+                                        color: Color(0xFFC9A761), width: 2)),
+                              )
                             : null,
                         child: Text(
                           _tabs[index],
                           style: GoogleFonts.inter(
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
-                            color: isSelected ? const Color(0xFFC9A761) : Colors.grey.shade400,
+                            color: isSelected
+                                ? const Color(0xFFC9A761)
+                                : Colors.grey.shade400,
                             letterSpacing: 1.0,
                           ),
                         ),
@@ -117,21 +129,24 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: Column(
                         children: [
                           _buildSearchCard(
-                            imageUrl: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=2080&auto=format&fit=crop',
+                            imageUrl:
+                                'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=2080&auto=format&fit=crop',
                             brand: 'BRAND',
                             name: 'Product Name',
                             height: 220,
                           ),
                           const SizedBox(height: 20),
                           _buildSearchCard(
-                            imageUrl: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=1935&auto=format&fit=crop',
+                            imageUrl:
+                                'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=1935&auto=format&fit=crop',
                             brand: 'BRAND',
                             name: 'Product Name',
                             height: 180,
                           ),
                           const SizedBox(height: 20),
                           _buildSearchCard(
-                            imageUrl: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=2070&auto=format&fit=crop',
+                            imageUrl:
+                                'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=2070&auto=format&fit=crop',
                             brand: 'BRAND',
                             name: 'Product Name',
                             height: 240,
@@ -147,21 +162,24 @@ class _SearchScreenState extends State<SearchScreen> {
                         children: [
                           const SizedBox(height: 40),
                           _buildSearchCard(
-                            imageUrl: 'https://images.unsplash.com/photo-1614252369475-531eba835eb1?q=80&w=1915&auto=format&fit=crop',
+                            imageUrl:
+                                'https://images.unsplash.com/photo-1614252369475-531eba835eb1?q=80&w=1915&auto=format&fit=crop',
                             brand: 'BRAND',
                             name: 'Product Name',
                             height: 180,
                           ),
                           const SizedBox(height: 20),
                           _buildSearchCard(
-                            imageUrl: 'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=1894&auto=format&fit=crop',
+                            imageUrl:
+                                'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=1894&auto=format&fit=crop',
                             brand: 'BRAND',
                             name: 'Product Name',
                             height: 220,
                           ),
                           const SizedBox(height: 20),
                           _buildSearchCard(
-                            imageUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1920&auto=format&fit=crop',
+                            imageUrl:
+                                'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1920&auto=format&fit=crop',
                             brand: 'BRAND',
                             name: 'Product Name',
                             height: 300,
@@ -213,17 +231,22 @@ class _SearchScreenState extends State<SearchScreen> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const DiscoverScreen()),
+                            MaterialPageRoute(
+                                builder: (context) => const DiscoverScreen()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
                           foregroundColor: Colors.white,
-                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero),
                         ),
                         child: Text(
                           'DISCOVER ALL',
-                          style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.w600, letterSpacing: 1.0),
+                          style: GoogleFonts.inter(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1.0),
                         ),
                       ),
                     ),
@@ -235,7 +258,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         onPressed: () {},
                         style: OutlinedButton.styleFrom(
                           side: const BorderSide(color: Colors.grey),
-                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero),
                         ),
                         child: Text(
                           'USE MORE FILTERS',
@@ -267,9 +291,12 @@ class _SearchScreenState extends State<SearchScreen> {
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: 'Catalog'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: 'Favorites'),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.grid_view), label: 'Catalog'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.favorite_border), label: 'Favorites'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline), label: 'Profile'),
         ],
       ),
     );
@@ -287,7 +314,8 @@ class _SearchScreenState extends State<SearchScreen> {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
-        image: DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.cover),
+        image:
+            DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.cover),
       ),
       child: Stack(
         children: [
@@ -297,7 +325,10 @@ class _SearchScreenState extends State<SearchScreen> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Colors.transparent, Colors.black.withValues(alpha: 0.3)],
+                colors: [
+                  Colors.transparent,
+                  Colors.black.withValues(alpha: 0.3)
+                ],
               ),
             ),
           ),

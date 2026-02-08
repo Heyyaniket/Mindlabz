@@ -44,7 +44,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   width: double.infinity,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      // Using the kid image from your screenshot
+                      // Using the kid image
                       image: NetworkImage('https://images.unsplash.com/photo-1519238263496-6361937a2717?q=80&w=1887&auto=format&fit=crop'),
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
