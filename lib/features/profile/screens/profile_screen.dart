@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mindlabz/core/theme/app_pallete.dart';
+import 'package:mindlabz/features/auth/screens/login_screen.dart';
 import 'package:mindlabz/features/profile/widgets/personalization_card.dart';
 import 'package:mindlabz/features/profile/widgets/profile_menu_item.dart';
 import 'package:mindlabz/features/wishlist/screens/wishlist_screen.dart'; // To link "My Wishlist"
@@ -147,10 +148,10 @@ class ProfileScreen extends StatelessWidget {
             // 5. LOGOUT
             TextButton(
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
+                Navigator.pushAndRemoveUntil(
                   context,
-                  '/login',
-                  (route) => false,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  (route) => false, 
                 );
               },
               child: Text(
